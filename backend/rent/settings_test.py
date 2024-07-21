@@ -123,16 +123,3 @@ TEST_CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
-
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [(os.getenv("REDIS_HOST"), os.getenv("REDIS_PORT"))],
-#         },
-#     },
-# }
-#
-# REDIS_HOST = os.getenv("REDIS_HOST")
-# REDIS_PORT = os.getenv("REDIS_PORT")
-#

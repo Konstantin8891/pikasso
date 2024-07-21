@@ -80,7 +80,7 @@ jobs:
         port: 22
         key: ${{ secrets.SSH_KEY }}
         source: "./infra/docker-compose.yml"
-        target: "~/.deploy/${{ pikasso }}/"
+        target: "~/${{ github.event.repository.name }}/"
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:

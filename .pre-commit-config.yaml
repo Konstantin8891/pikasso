@@ -35,8 +35,8 @@ repos:
   rev: 1.7.1
   hooks:
   - id: poetry-export
-    args: ["--only", "main", "--without-hashes", "-f", "requirements.txt", "-o", "requirements.txt"]
+    args: ["--only", "main", "--without-hashes", "-f", "requirements.txt", "-o", "backend/requirements.txt"]
   - id: poetry-export
-    args: ["--only", "dev", "--without-hashes", "-f", "requirements.txt", "-o", "requirements_dev.txt"]
+    args: ["--only", "dev", "--without-hashes", "-f", "requirements.txt", "-o", "backend/requirements_dev.txt"]
   - id: poetry-export
-    args: ["--only", "test", "--without-hashes", "-f", "requirements.txt", "-o", "requirements_test.txt"]
+    args: ["--only", "test", "--without-hashes", "-f", "requirements.txt", "-o", "backend/requirements_test.txt"]

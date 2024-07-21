@@ -80,7 +80,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           sudo docker pull konstantin05/pikasso_backend:latest
-          sudo docker-compose stop
+          sudo docker compose stop
           sudo docker system prune -f
           touch .env
           echo REDIS_HOST=${{ secrets.REDIS_HOST }} >> .env
@@ -91,9 +91,9 @@ jobs:
           echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
           echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-          sudo docker-compose up -d
-          sudo docker-compose exec -T backend python manage.py migrate
-          sudo docker-compose exec -T backend gunicorn rent.wsgi:application --bind 0.0.0.0:8000
+          sudo docker compose up -d
+          sudo docker compose exec -T backend python manage.py migrate
+          sudo docker compose exec -T backend gunicorn rent.wsgi:application --bind 0.0.0.0:8000
   deploy_celery:
     runs-on: ubuntu-latest
     needs: deploy_back
@@ -107,7 +107,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           sudo docker pull konstantin05/pikasso_celery:latest
-          sudo docker-compose stop
+          sudo docker compose stop
           sudo docker system prune -f
           touch .env
           echo REDIS_HOST=${{ secrets.REDIS_HOST }} >> .env
@@ -118,8 +118,8 @@ jobs:
           echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
           echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-          sudo docker-compose up -d
-          sudo docker-compose exec -T celery -A rent worker -l info
+          sudo docker compose up -d
+          sudo docker compose exec -T celery -A rent worker -l info
   send_message:
     runs-on: ubuntu-latest
     needs: deploy_celery

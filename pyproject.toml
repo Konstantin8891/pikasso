@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "pikasso"
+version = "0.1.0"
+description = ""
+authors = ["Konstantin <89670253660@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+djangorestframework = "^3.15.2"
+rest-framework-simplejwt = "^0.0.2"
+djangorestframework-simplejwt = "^5.3.1"
+celery = "^5.4.0"
+redis = "^5.0.7"
+python-dotenv = "^1.0.1"
+psycopg = "^3.2.1"
+psycopg-binary = "^3.2.1"
+gunicorn = "^22.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+poetry-plugin-export = "^1.8.0"
+celery = {extras = ["pytest"], version = "^5.4.0"}
+
+
+
+[tool.poetry.group.test.dependencies]
+pytest-django = "^4.8.0"
+fakeredis = "^2.23.3"
+pytest-asyncio = "^0.23.8"
+
+
+[tool.poetry.group.commitizen.dependencies]
+commitizen = "^3.28.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

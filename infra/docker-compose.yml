@@ -1,0 +1,69 @@
+version: '3.8'
+services:
+#  backend:
+#    build:
+#      context: ../backend/
+#      dockerfile: Dockerfile
+#    restart: always
+#    command: bash -c "python manage.py migrate & gunicorn rent.wsgi:application --bind 0.0.0.0:8000"
+#    volumes:
+#      -  ../backend/:/app/
+#    ports:
+#      - "127.0.0.1:8000:8000"
+#    depends_on:
+#      - redis
+#      - db
+  backend:
+    image: konstantin05/pikasso_backend:latest
+    restart: always
+    command: bash -c "python manage.py migrate & gunicorn rent.wsgi:application --bind 0.0.0.0:8000"
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - redis
+      - db
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../backend/.env
+    networks:
+      - default
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis.conf:/etc/redis/redis.conf
+      - redis_data:/data
+    expose:
+      - 6379
+    restart: unless-stopped
+#  celery:
+#    build:
+#      context: ../backend/
+#      dockerfile: Dockerfile
+#    volumes:
+#      - celery_data:/var/lib/celery/data
+#      - ../backend/:/app/
+#    restart: always
+#    command: bash -c "celery -A rent worker -l info"
+#    depends_on:
+#      - backend
+#      - redis
+  celery:
+    image: konstantin05/pikasso_celery:latest
+    volumes:
+      - celery_data:/var/lib/celery/data
+      - ../backend/:/app/
+    restart: always
+    command: bash -c "celery -A rent worker -l info"
+    depends_on:
+      - backend
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:
+  celery_data:
